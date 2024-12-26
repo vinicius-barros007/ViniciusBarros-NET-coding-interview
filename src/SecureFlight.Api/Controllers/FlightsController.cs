@@ -21,7 +21,7 @@ public class FlightsController(IService<Flight> flightService, IMapper mapper)
         return MapResultToDataTransferObject<IReadOnlyList<Flight>, IReadOnlyList<FlightDataTransferObject>>(flights);
     }
 
-    [HttpGet]
+    [HttpGet("GetOriginAndDestination")]
     [ProducesResponseType(typeof(IEnumerable<FlightDataTransferObject>), StatusCodes.Status200OK)]
     [ProducesResponseType(StatusCodes.Status500InternalServerError, Type = typeof(ErrorResponseActionResult))]
     public async Task<IActionResult> GetOriginAndDestination(string origin, string destination)

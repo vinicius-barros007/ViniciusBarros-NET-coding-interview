@@ -28,9 +28,7 @@ builder.Services.AddControllers(options => {
 builder.Services.AddDbContext<SecureFlightDbContext>(options => options.UseInMemoryDatabase("SecureFlight"));
 builder.Services.AddScoped(typeof(IRepository<>), typeof(BaseRepository<>));
 builder.Services.AddScoped(typeof(IService<>), typeof(BaseService<>));
-
 builder.Services.AddScoped(typeof(IFlightRepository), typeof(FlightRepository));
-
 builder.Services.AddAutoMapper(typeof(Program));
 
 var app = builder.Build();
