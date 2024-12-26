@@ -20,4 +20,16 @@ public class FlightsController(IService<Flight> flightService, IMapper mapper)
         var flights = await flightService.GetAllAsync();
         return MapResultToDataTransferObject<IReadOnlyList<Flight>, IReadOnlyList<FlightDataTransferObject>>(flights);
     }
+
+    [HttpGet]
+    [ProducesResponseType(typeof(IEnumerable<FlightDataTransferObject>), StatusCodes.Status200OK)]
+    [ProducesResponseType(StatusCodes.Status500InternalServerError, Type = typeof(ErrorResponseActionResult))]
+    public async Task<IActionResult> GetOriginAndDestination(string origin, string destination)
+    {
+        var flights = await flightService.FilterAsync(x => string.Compare(x.OriginAirport, origin, true) != 0 && string.Compare(x.DestinationAirport, destination, true) != 0);
+        if (!flights.Result.Any())
+            return NotFound("");
+
+        return MapResultToDataTransferObject<IReadOnlyList<Flight>, IReadOnlyList<FlightDataTransferObject>>(flights);
+    }
 }

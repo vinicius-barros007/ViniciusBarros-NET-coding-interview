@@ -20,6 +20,8 @@ public class AirportsController(
     [ProducesResponseType(StatusCodes.Status500InternalServerError, Type = typeof(ErrorResponseActionResult))]
     public async Task<IActionResult> Get()
     {
+        throw new Exception();
+
         var airports = await airportService.GetAllAsync();
         return MapResultToDataTransferObject<IReadOnlyList<Airport>, IReadOnlyList<AirportDataTransferObject>>(airports);
     }
@@ -39,6 +41,7 @@ public class AirportsController(
         airport.Country = airportDto.Country;
         airport.Name = airportDto.Name;
         var result = airportRepository.Update(airport);
+        await airportRepository.SaveChangesAsync();
         return MapResultToDataTransferObject<Airport, AirportDataTransferObject>(result);
     }
 }

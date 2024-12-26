@@ -20,11 +20,17 @@ builder.Services.AddSwaggerGen(c =>
     });
 });
 
-builder.Services.AddControllers(options => options.Filters.Add(typeof(ErrorResultFilter)));
+builder.Services.AddControllers(options => {
+    options.Filters.Add(typeof(ErrorResultFilter));
+    options.Filters.Add(typeof(ErrorFilter));
+});
 
 builder.Services.AddDbContext<SecureFlightDbContext>(options => options.UseInMemoryDatabase("SecureFlight"));
 builder.Services.AddScoped(typeof(IRepository<>), typeof(BaseRepository<>));
 builder.Services.AddScoped(typeof(IService<>), typeof(BaseService<>));
+
+builder.Services.AddScoped(typeof(IFlightRepository), typeof(FlightRepository));
+
 builder.Services.AddAutoMapper(typeof(Program));
 
 var app = builder.Build();

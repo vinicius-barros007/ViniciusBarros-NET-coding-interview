@@ -1,4 +1,3 @@
-using System.Runtime.InteropServices.JavaScript;
 using AutoMapper;
 using Microsoft.AspNetCore.Mvc;
 using SecureFlight.Api.Models;
